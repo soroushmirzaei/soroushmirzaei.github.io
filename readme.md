@@ -13,6 +13,15 @@ Enthusiast In Computer Vision, Natural Language Processing
 [![Google Colab](https://img.shields.io/badge/Google%20Colab-%23e6a822.svg?&style=flat&logo=GoogleColab&logoColor=white)](https://colab.research.google.com/)
 [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-%230066b8.svg?&style=flat&logo=Visual%20Studio%20Code&logoColor=white)](https://code.visualstudio.com/)
 
+> Libraries & Packages
+
+[![TensorFlow](https://img.shields.io/badge/Tensorflow-%23ff9100.svg?&style=flat&logo=Tensorflow&logoColor=white)](https://www.tensorflow.org/)
+[![Keras](https://img.shields.io/badge/Keras-%23d00000.svg?&style=flat&logo=Keras&logoColor=white)](https://keras.io/)
+[![Scikit-Learn](https://img.shields.io/badge/Scikit%20Learn-%233499cd.svg?&style=flat&logo=ScikitLearn&logoColor=white)](https://scikit-learn.org/)\
+[![Numpy](https://img.shields.io/badge/Numpy-%232c7794.svg?&style=flat&logo=Numpy&logoColor=white)](https://numpy.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-%23301f82.svg?&style=flat&logo=Pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Scipy](https://img.shields.io/badge/Scipy-%230054a6.svg?&style=flat&logo=Scipy&logoColor=white)](https://scipy.org/)
+
 > Portfolio & Social Media
 
 [![Linkedin](https://img.shields.io/badge/LinkedIn-%230a66c2.svg?&style=flat&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/soroushmirzaei/)

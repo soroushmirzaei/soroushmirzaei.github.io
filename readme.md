@@ -33,3 +33,6 @@ Enthusiast In Computer Vision, Natural Language Processing
 
 [![ProtonMail](https://img.shields.io/badge/ProtonMail-%236746f2.svg?&style=flat&logo=ProtonMail&logoColor=white)](mailto:seyyedsoroushmirzaei@protonmail.com)
 [![Telegram](https://img.shields.io/badge/Telegram-%23239bd6.svg?&style=flat&logo=Telegram&logoColor=white)](https://telegram.me/sydsrsmrz)
+
+
+<img src="http://api.qrserver.com/v1/create-qr-code/?color=15757B&amp;bgcolor=FFFFFF&amp;data=BEGIN%3AVCARD%0AVERSION%3A2.1%0AFN%3ASoroush+Mirzaei%0AN%3AMirzaei%3BSoroush%0AEMAIL%3BHOME%3BINTERNET%3Aseyyedsoroushmirzaei%40protonmail.com%0AURL%3Asoroushmirzaei.github.io%0AEND%3AVCARD%0A&amp;qzone=10&amp;margin=0&amp;size=600x600&amp;ecc=L" alt="qr code" />

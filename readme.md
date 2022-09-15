@@ -33,6 +33,3 @@ Enthusiast In Computer Vision, Natural Language Processing
 
 [![ProtonMail](https://img.shields.io/badge/ProtonMail-%236746f2.svg?&style=flat&logo=ProtonMail&logoColor=white)](mailto:seyyedsoroushmirzaei@protonmail.com)
 [![Telegram](https://img.shields.io/badge/Telegram-%23239bd6.svg?&style=flat&logo=Telegram&logoColor=white)](https://telegram.me/sydsrsmrz)
-
-
-<img align="right" src="qrcode.png" alt="alt text" width="200"/>

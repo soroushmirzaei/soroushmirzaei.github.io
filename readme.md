@@ -28,6 +28,7 @@ Enthusiast In Computer Vision, Natural Language Processing
 [![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-%23e87a22.svg?&style=flat&logo=StackOverflow&logoColor=white)](https://stackoverflow.com/users/19121443)\
 [![Twitter](https://img.shields.io/badge/Twitter-%231da1f2.svg?&style=flat&logo=Twitter&logoColor=white)](https://twitter.com/sydsrsmrz)
 [![Instagram](https://img.shields.io/badge/Instagram-%23cf004b.svg?&style=flat&logo=Instagram&logoColor=white)](https://instagram.com/sydsrsmrz)
+[![Discord](https://img.shields.io/badge/Discord-%235865f2.svg?&style=flat&logo=Discord&logoColor=white)](http://discordapp.com/users/1021080864081334302)
 
 > Email & Contact
 

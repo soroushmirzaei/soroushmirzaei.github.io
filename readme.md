@@ -33,7 +33,7 @@ Enthusiast In Computer Vision, Natural Language Processing
 > Streaming & Multimedia
 
 [![Discord](https://img.shields.io/badge/Discord-%235865f2.svg?&style=flat&logo=Discord&logoColor=white)](http://discordapp.com/users/1021080864081334302)
-[![Spotify](https://img.shields.io/badge/Spotify-%231ccc5b.svg?&style=flat&logo=Spotify&logoColor=white)](https://open.spotify.com/user/31yy2ufrkd24iojhxcupfbvpqosi)
+[![Spotify](https://img.shields.io/badge/Spotify-%231ccc5b.svg?&style=flat&logo=Spotify&logoColor=white)](https://sptfy.com/sydsrsmrz)
 [![SoundCloud](https://img.shields.io/badge/SoundCloud-%23f25100.svg?&style=flat&logo=SoundCloud&logoColor=white)](https://soundcloud.com/sydsrsmrz)
 
 > Email & Contact

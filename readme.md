@@ -25,7 +25,8 @@ Enthusiast In Computer Vision, Natural Language Processing
 > Portfolio & Social Media
 
 [![Linkedin](https://img.shields.io/badge/LinkedIn-%230a66c2.svg?&style=flat&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/soroushmirzaei/)
-[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-%23f25100.svg?&style=flat&logo=StackOverflow&logoColor=white)](https://stackoverflow.com/users/19121443)\
+[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-%23f25100.svg?&style=flat&logo=StackOverflow&logoColor=white)](https://stackoverflow.com/users/19121443)
+[![Github](https://img.shields.io/badge/Github-%23292f34.svg?&style=flat&logo=Github&logoColor=white)](https://github.com/soroushmirzaei)\
 [![Twitter](https://img.shields.io/badge/Twitter-%231da1f2.svg?&style=flat&logo=Twitter&logoColor=white)](https://twitter.com/sydsrsmrz)
 [![Instagram](https://img.shields.io/badge/Instagram-%23cf004b.svg?&style=flat&logo=Instagram&logoColor=white)](https://instagram.com/sydsrsmrz)
 [![Pinterest](https://img.shields.io/badge/Pinterest-%23cc0000.svg?&style=flat&logo=Pinterest&logoColor=white)](https://pinterest.com/sydsrsmrz)

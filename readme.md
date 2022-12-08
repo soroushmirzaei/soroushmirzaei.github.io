@@ -30,7 +30,7 @@ Enthusiast In Computer Vision, Natural Language Processing
 [![Instagram](https://img.shields.io/badge/Instagram-%23cf004b.svg?&style=flat&logo=Instagram&logoColor=white)](https://instagram.com/sydsrsmrz)
 [![Pinterest](https://img.shields.io/badge/Pinterest-%23cc0000.svg?&style=flat&logo=Pinterest&logoColor=white)](https://pinterest.com/sydsrsmrz)
 
-> Streaming & Multimedia
+> Streaming & Station
 
 [![Discord](https://img.shields.io/badge/Discord-%235865f2.svg?&style=flat&logo=Discord&logoColor=white)](http://discordapp.com/users/1021080864081334302)
 [![Spotify](https://img.shields.io/badge/Spotify-%231ccc5b.svg?&style=flat&logo=Spotify&logoColor=white)](https://sptfy.com/sydsrsmrz)

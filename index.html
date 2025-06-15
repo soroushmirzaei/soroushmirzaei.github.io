@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soroush Mirzaei</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #111213;
+            --primary-color: #084741;
+            --primary-color-text: #109284;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(28, 28, 30, 0.6);
+            --text-primary: #F0F6FC;
+            --text-secondary: #8B949E;
+            --header-height: 4.5rem;
+            --footer-height: 2.5rem;
+            --scroll-duration: 1s;
+        }
+        html { height: 100%; overflow: hidden; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        #mouse-gradient-highlight {
+            position: fixed;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--primary-color-text) 0%, transparent 50%);
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.5s ease-in-out;
+            filter: blur(80px);
+            z-index: 1;
+        }
+        #main-container {
+            height: 100%;
+            transition: transform var(--scroll-duration) cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            position: relative;
+            z-index: 2;
+        }
+        .scroll-section {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .section-content-wrapper {
+            width: 100%;
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: auto; /* Changed to auto for scrolling on small content */
+            padding: 1rem 1.5rem; 
+        }
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 1px hsla(0, 0%, 100%, .1);
+        }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 16px;
+            background: radial-gradient(circle 250px at var(--mouse-x) var(--mouse-y), rgba(16, 146, 132, 0.2), transparent 80%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card > * { position: relative; z-index: 1; }
+        
+        .header {
+            background: rgba(17, 18, 19, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            height: var(--header-height);
+            position: relative;
+            z-index: 50;
+        }
+        .nav-link.active { color: var(--primary-color-text); }
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* --- Journey Timeline Styles --- */
+        .timeline {
+            position: relative;
+            max-width: 900px; /* Increased max-width for better spacing on large screens */
+            margin: 0 auto;
+        }
+        /* The actual timeline (the vertical ruler) - Mobile First */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--border-color);
+            top: 0;
+            bottom: 0;
+            left: 20px; /* Position on the left for mobile */
+            margin-left: -1.5px;
+            border-radius: 3px;
+        }
+        /* Container around content */
+        .timeline-container {
+            padding-left: 50px; /* Space for the timeline line */
+            padding-right: 0;
+            position: relative;
+            background-color: inherit;
+            width: 100%; /* Full width for mobile */
+            margin-bottom: 2rem;
+        }
+        /* The circles on the timeline */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 20px; /* Match the line position for mobile */
+            background-color: var(--primary-color);
+            border: 4px solid var(--bg-color);
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-content {
+            padding: 1rem 1.5rem;
+            position: relative;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        /* --- Desktop Timeline Styles (Overrides) --- */
+        @media (min-width: 768px) {
+            .timeline::after {
+                left: 50%; /* Center the line on desktop */
+            }
+            .timeline-container {
+                padding: 0 40px;
+                width: 50%;
+                margin-bottom: -48px; /* Restore original overlap for zig-zag */
+                display: flex;
+                align-items: center;
+            }
+            /* Push containers to the right */
+            .timeline-container.right {
+                left: 50%;
+            }
+             /* Push containers to the left */
+            .timeline-container.left {
+                left: 0;
+            }
+            
+            /* --- FIX: Correctly position the timeline dots to intersect the center line --- */
+            .timeline-container.left::after {
+                left: 100%; /* Position at the container's right edge */
+                right: auto;
+            }
+            .timeline-container.right::after {
+                left: 0%; /* Position at the container's left edge */
+            }
+             /* This vertically aligns the dots with the middle of the card */
+            .timeline-container::after {
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        
+        .info-card { display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+        .project-tags span {
+            background-color: rgba(8, 71, 65, 0.3); color: var(--primary-color-text);
+            padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;
+        }
+        .card-links a { color: var(--text-secondary); transition: color 0.3s ease; }
+        .card-links a:hover { color: var(--primary-color-text); }
+        .scroll-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s; }
+        .active-section .scroll-animate { opacity: 1; transform: translateY(0); }
+        
+        .btn-glass {
+            background: rgba(8, 71, 65, 0.45);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2), inset 0 1px 0px rgba(255,255,255,0.05);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-glass:hover {
+            background: rgba(16, 146, 132, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.25), inset 0 1px 0px rgba(255,255,255,0.1);
+            color: #fff;
+        }
+         .btn-glass-secondary {
+            background: rgba(55, 65, 81, 0.45);
+        }
+        .btn-glass-secondary:hover {
+            background: rgba(75, 85, 99, 0.6);
+        }
+
+        .icon-style {
+            color: var(--primary-color-text);
+            text-shadow: 0 0 6px rgba(16, 146, 132, 0.7);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .info-card .icon-style, .language-card .icon-style {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .section-title .icon-style {
+            font-size: 2rem;
+        }
+        .glass-card:hover .icon-style {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(16, 146, 132, 1);
+            transform: scale(1.1);
+        }
+        .card-links .icon-style {
+            font-size: 1.25rem;
+        }
+        .timeline-content .icon-style {
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+        .timeline-text-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .language-card .progress-bar {
+            background-color: var(--border-color);
+            border-radius: 9999px;
+            height: 8px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .language-card .progress {
+            background-color: var(--primary-color-text);
+            height: 100%;
+            border-radius: 9999px;
+        }
+
+        /* --- Mobile Menu Styles --- */
+        #mobile-menu {
+            background-color: rgba(17, 18, 19, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+
+        #mobile-menu.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* --- Animated Hamburger Icon --- */
+        .hamburger {
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            transition: all 0.25s;
+            position: relative;
+        }
+
+        .hamburger-top,
+        .hamburger-middle,
+        .hamburger-bottom {
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            top: 0;
+            left: 0;
+            background: var(--text-primary);
+            transform: rotate(0);
+            transition: all 0.5s;
+        }
+
+        .hamburger-middle {
+            transform: translateY(7px);
+        }
+
+        .hamburger-bottom {
+            transform: translateY(14px);
+        }
+
+        .active .hamburger-top {
+            transform: rotate(45deg) translateY(6px) translateX(6px);
+        }
+
+        .active .hamburger-middle {
+            display: none;
+        }
+
+        .active .hamburger-bottom {
+            transform: rotate(-45deg) translateY(6px) translateX(-6px);
+        }
+
+        /* --- Contact Icon Styles --- */
+        .contact-icon-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(3.2rem, 10vw, 3.7rem);
+            height: clamp(3.2rem, 10vw, 3.7rem);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .contact-icon-wrapper:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .contact-icon-wrapper .icon-style {
+            font-size: clamp(1.5rem, 5vw, 1.75rem);
+            color: var(--primary-color-text);
+            transition: color 0.3s ease;
+            margin: 0;
+        }
+        .contact-icon-wrapper:hover .icon-style {
+            color: var(--text-primary);
+        }
+
+        /* --- Font and Sizing Adaptability --- */
+        :root {
+            font-size: clamp(10px, 1.5vw, 16px);
+        }
+        .section-title {
+            font-size: clamp(1.75rem, 5vw, 2.25rem);
+        }
+        .glass-card, .info-card, .language-card {
+             padding: clamp(0.75rem, 3vw, 1.5rem);
+        }
+        h1 {
+            font-size: clamp(2rem, 8vw, 3.75rem);
+        }
+        h3 {
+            font-size: clamp(1rem, 4vw, 1.25rem);
+        }
+        p, a, span {
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+        }
+        .icon-style {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+        }
+        .card-links .icon-style {
+             font-size: clamp(1rem, 4vw, 1.25rem);
+        }
+
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false;">
+
+    <div id="mouse-gradient-highlight"></div>
+
+    <header id="header" class="header fixed top-0 w-full z-50 flex items-center">
+        <nav class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#hero" class="nav-link text-lg md:text-xl font-bold hover:text-theme transition-colors">Soroush Mirzaei</a>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="#about" class="nav-link text-gray-300 hover:text-theme transition-colors">About</a>
+                <a href="#skills" class="nav-link text-gray-300 hover:text-theme transition-colors">Skills</a>
+                <a href="#journey" class="nav-link text-gray-300 hover:text-theme transition-colors">Journey</a>
+                <a href="#publications" class="nav-link text-gray-300 hover:text-theme transition-colors">Publications</a>
+                <a href="#projects" class="nav-link text-gray-300 hover:text-theme transition-colors">Projects</a>
+                <a href="#certifications" class="nav-link text-gray-300 hover:text-theme transition-colors">Certifications</a>
+                <a href="#languages" class="nav-link text-gray-300 hover:text-theme transition-colors">Languages</a>
+                <a href="#contact" class="nav-link text-gray-300 hover:text-theme transition-colors">Contact</a>
+            </div>
+            <!-- FIX: Replaced "Contact Me" with "Download Resume" button -->
+            <a href="https://github.com/soroushmirzaei/soroushmirzaei.github.io/blob/main/Seyyed-Soroush-Mirzaei-Resume.pdf" download="SoroushMirzaei_Resume.pdf" class="hidden lg:inline-flex btn-glass items-center gap-2">
+                <i class="fas fa-file-arrow-down" aria-hidden="true"></i>
+                <span>Download Resume</span>
+            </a>
+            <!-- Modernized Mobile Menu Button -->
+            <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none hamburger">
+                 <div class="hamburger-top"></div>
+                 <div class="hamburger-middle"></div>
+                 <div class="hamburger-bottom"></div>
+            </button>
+        </nav>
+    </header>
+    <!-- Restyled Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full z-40 pt-20">
+        <div class="flex flex-col items-center justify-center h-full space-y-4">
+            <a href="#about" class="nav-link block py-3 text-2xl text-gray-300">About</a>
+            <a href="#skills" class="nav-link block py-3 text-2xl text-gray-300">Skills</a>
+            <a href="#journey" class="nav-link block py-3 text-2xl text-gray-300">Journey</a>
+            <a href="#publications" class="nav-link block py-3 text-2xl text-gray-300">Publications</a>
+            <a href="#projects" class="nav-link block py-3 text-2xl text-gray-300">Projects</a>
+            <a href="#certifications" class="nav-link block py-3 text-2xl text-gray-300">Certifications</a>
+            <a href="#languages" class="nav-link block py-3 text-2xl text-gray-300">Languages</a>
+            <a href="#contact" class="nav-link block py-3 text-2xl text-gray-300">Contact</a>
+        </div>
+    </div>
+
+    <main id="main-container">
+
+        <!-- Hero Section -->
+        <section id="hero" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                 <div class="scroll-animate text-center">
+                    <img src="https://avatars.githubusercontent.com/u/102311759" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/160x160/0a0a0a/F0F6FC?text=SM';" 
+                        alt="Soroush Mirzaei" 
+                        class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-4 md:mb-6 border-4" style="border-color: var(--primary-color);">
+                    <h1>Seyyed Soroush Mirzaei</h1>
+                    <p class="text-md sm:text-lg md:text-xl font-semibold mb-6 md:mb-8" style="color: var(--primary-color-text);">Deep Learning & Machine Learning Developer</p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                        <!-- FIX: Added 'nav-link' class to enable smooth scrolling -->
+                        <a href="#projects" class="nav-link btn-glass w-full sm:w-auto">View My Work</a>
+                        <a href="https://github.com/soroushmirzaei" target="_blank" class="btn-glass btn-glass-secondary w-full sm:w-auto gap-2">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="scroll-section">
+             <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate text-center max-w-3xl mx-auto">
+                    <h2 class="section-title text-2xl md:text-3xl font-bold mb-6 justify-center">
+                        <i class="fas fa-user-astronaut icon-style"></i> About Me
+                    </h2>
+                    <p>A highly motivated graduate of Mechanical Engineering with advanced training in AI, Machine Learning, and Data Science. I excel at analyzing complex data to extract actionable insights for informed decision-making and building intelligent systems.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full text-center">
+                     <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 md:mb-12 justify-center">
+                        <i class="fas fa-cogs icon-style"></i> Technical Skills
+                    </h2>
+                    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 text-left">
+                        <div class="info-card glass-card"><i class="fab fa-python icon-style"></i><h3>Python</h3><p>Extensive experience in Python for data analysis, scripting, and building ML models. Proficient with libraries like NumPy, Pandas, and Scikit-learn.</p></div>
+                        <div class="info-card glass-card"><i class="fas fa-brain icon-style"></i><h3>TensorFlow / Keras</h3><p>Skilled in building and training deep neural networks for various tasks, including computer vision and sequence modeling, using TensorFlow and its high-level API, Keras.</p></div>
+                        <div class="info-card glass-card"><i class="fas fa-layer-group icon-style"></i><h3>PyTorch</h3><p>Competent in developing dynamic neural networks and custom research models with PyTorch, leveraging its flexibility and strong community support for cutting-edge AI.</p></div>
+                        <div class="info-card glass-card"><i class="fas fa-eye icon-style"></i><h3>OpenCV</h3><p>Proficient in using OpenCV for real-time computer vision applications, including image processing, feature detection, object tracking, and video analysis.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Section -->
+        <section id="journey" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full">
+                    <div class="text-center">
+                        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 md:mb-12 justify-center">
+                            <i class="fas fa-route icon-style"></i> My Journey
+                        </h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-container left">
+                            <div class="timeline-content glass-card">
+                                <i class="fas fa-robot icon-style"></i>
+                                <div class="timeline-text-content">
+                                    <h3>AI Researcher</h3>
+                                    <p class="mb-2 font-medium" style="color: var(--primary-color-text);">Sun Air Research Insitute</p>
+                                    <p class="text-xs">2023 - Present</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-container right">
+                            <div class="timeline-content glass-card">
+                                <i class="fas fa-graduation-cap icon-style"></i>
+                                <div class="timeline-text-content">
+                                    <h3>Master Of Engineering</h3>
+                                    <p class="-mt-1 mb-1 font-semibold">Energy Conversion</p>
+                                    <p class="mb-2 font-medium" style="color: var(--primary-color-text);">Ferdowsi University</p>
+                                    <p class="text-xs">2019 - 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-container left">
+                            <div class="timeline-content glass-card">
+                                <i class="fas fa-user-graduate icon-style"></i>
+                                <div class="timeline-text-content">
+                                    <h3>Bachelor Of Engineering</h3>
+                                    <p class="-mt-1 mb-1 font-semibold">Mechanical Engineering</p>
+                                    <p class="mb-2 font-medium" style="color: var(--primary-color-text);">Birjand University</p>
+                                    <p class="text-xs">2014 - 2019</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Publications Section -->
+        <section id="publications" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full">
+                    <div class="text-center">
+                        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 md:mb-12 justify-center">
+                           <i class="fas fa-book-open icon-style"></i> Publications
+                        </h2>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 md:gap-8 max-w-3xl mx-auto">
+                        <div class="info-card glass-card">
+                            <div>
+                                <h3>Utilizing Machine Learning Methods To Simulate The Fast Filling Process In CNG Stations</h3>
+                                <p class="my-2">This research introduces a novel approach using machine learning and artificial neural networks (ANNs) to determine thermodynamic properties and simulate the vehicle tank filling process, replacing traditional methods to offer faster simulations with minimal computational power.</p>
+                                <div class="project-tags flex flex-wrap gap-2 mb-4"><span>Machine Learning</span><span>ANN</span><span>Simulation</span><span>Thesis</span></div>
+                            </div>
+                            <div class="card-links flex items-center gap-4 text-lg mt-4">
+                                <a href="https://www.researchgate.net/publication/374023249_Utilizing_Machine_Learning_Methods_To_Simulate_The_Fast_Filling_Process_In_CNG_Stations" target="_blank" title="Read Publication"><i class="fas fa-file-alt icon-style"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full">
+                    <div class="text-center">
+                        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 md:mb-12 justify-center">
+                           <i class="fas fa-code-branch icon-style"></i> Open Source Projects
+                        </h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
+                        <div class="info-card glass-card"><div><h3>Telegram Proxies Collector</h3><p class="my-2">A Python-based tool to automatically gather and verify active MTProto proxies for Telegram, ensuring continuous connectivity.</p><div class="project-tags flex flex-wrap gap-2 mb-4"><span>Python</span><span>Scraping</span><span>API</span></div></div><div class="card-links flex items-center gap-4 text-lg mt-4"><a href="https://github.com/soroushmirzaei/Telegram-Proxies-Collector" target="_blank" title="View on GitHub"><i class="fab fa-github icon-style"></i></a></div></div>
+                        <div class="info-card glass-card"><div><h3>Telegram Configs Collector</h3><p class="my-2">An automated script to find and collect various proxy configurations (V2Ray, etc.) compatible with Telegram.</p><div class="project-tags flex flex-wrap gap-2 mb-4"><span>Python</span><span>Automation</span><span>Networking</span></div></div><div class="card-links flex items-center gap-4 text-lg mt-4"><a href="https://github.com/soroushmirzaei/Telegram-Configs-Collector" target="_blank" title="View on GitHub"><i class="fab fa-github icon-style"></i></a></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="scroll-section">
+            <div class="section-content-wrapper">
+                <div class="scroll-animate w-full text-center">
+                     <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 md:mb-12 justify-center">
+                        <i class="fas fa-certificate icon-style"></i> Certifications
+                    </h2>
+                    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 text-left">
+                        <div class="info-card glass-card"><div><h3>DeepLearning.AI TensorFlow Developer</h3><p class="my-2">An in-depth program covering the fundamentals of TensorFlow, building and training neural networks, and more.</p></div><div class="card-links flex items-center gap-4 text-lg mt-auto"><a href="#" target="_blank" title="View Certificate"><i class="fas fa-link icon-style"></i></a></div></div>
+                        <div class="info-card glass-card"><div><h3>Convolutional Neural Networks in TensorFlow</h3><p class="my-2">Mastered building CNNs and using them to solve real-world image recognition challenges.</p></div><div class="card-links flex items-center gap-4 text-lg mt-auto"><a href="#" target="_blank" title="View Certificate"><i class="fas fa-link icon-style"></i></a></div></div>
+                        <div class="info-card glass-card"><div><h3>Natural Language Processing in TensorFlow</h3><p class="my-2">Learned to process text, represent sentences as vectors, and perform sentiment analysis.</p></div><div class="card-links flex items-center gap-4 text-lg mt-auto"><a href="#" target="_blank" title="View Certificate"><i class="fas fa-link icon-style"></i></a></div></div>
+                        <div class="info-card glass-card"><div><h3>Advanced Computer Vision with TensorFlow</h3><p class="my-2">Covered advanced techniques like object detection, image segmentation, and visualization.</p></div><div class="card-links flex items-center gap-4 text-lg mt-auto"><a href="#" target="_blank" title="View Certificate"><i class="fas fa-link icon-style"></i></a></div></div>
+                        <div class="info-card glass-card"><div><h3>Custom/Distributed Training with TensorFlow</h3><p class="my-2">Gained skills in building custom training loops and distributing models on multiple devices.</p></div><div class="card-links flex items-center gap-4 text-lg mt-auto"><a href="#" target="_blank" title="View Certificate"><i class="fas fa-link icon-style"></i></a></div></div>
+                        <div class="info-card glass-card"><div><h3>Custom Models, Layers & Loss Functions</h3><p class="my-2">Learned to create custom architectures and components for specialized ML problems.</p></div><div class="card-links flex items-center gap-4 text-lg mt-auto"><a href="#" target="_blank" title="View Certificate"><i class="fas fa-link icon-style"></i></a></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Languages Section -->
+        <section id="languages" class="scroll-section">
+             <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate text-center max-w-3xl mx-auto">
+                    <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 md:mb-12 justify-center">
+                        <i class="fas fa-language icon-style"></i> Languages
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 w-full">
+                        <div class="language-card glass-card">
+                             <h3>Persian</h3>
+                             <p>Native</p>
+                             <div class="progress-bar mt-auto"><div class="progress" style="width: 100%;"></div></div>
+                        </div>
+                        <div class="language-card glass-card">
+                             <h3>English</h3>
+                             <p>Advanced</p>
+                             <div class="progress-bar mt-auto"><div class="progress" style="width: 85%;"></div></div>
+                        </div>
+                        <div class="language-card glass-card">
+                             <h3>German</h3>
+                             <p>Intermediate</p>
+                             <div class="progress-bar mt-auto"><div class="progress" style="width: 40%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-section">
+             <div class="section-content-wrapper justify-center">
+                 <div class="scroll-animate max-w-2xl mx-auto text-center">
+                    <h2 class="section-title text-2xl md:text-3xl font-bold mb-6 justify-center">
+                        <i class="fas fa-paper-plane icon-style"></i> Get In Touch
+                    </h2>
+                    <p class="mb-8">I'm currently open to new opportunities and collaborations. Feel free to reach out!</p>
+                    <a href="tg://resolve?domain=sydsrsmrz" class="btn-glass text-base md:text-lg mb-10">Say Hello</a>
+                    <div class="flex justify-center items-center flex-wrap gap-4 md:gap-6">
+                        <a href="mailto:seyyedsoroushmirzaei@protonmail.com" class="contact-icon-wrapper" title="Email">
+                            <i class="fas fa-envelope icon-style"></i>
+                        </a>
+                        <a href="https://github.com/soroushmirzaei" target="_blank" class="contact-icon-wrapper" title="GitHub">
+                            <i class="fab fa-github icon-style"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/soroushmirzaei" target="_blank" class="contact-icon-wrapper" title="LinkedIn">
+                            <i class="fab fa-linkedin icon-style"></i>
+                        </a>
+                        <a href="tg://resolve?domain=sydsrsmrz" target="_blank" class="contact-icon-wrapper" title="Telegram">
+                            <i class="fab fa-telegram-plane icon-style"></i>
+                        </a>
+                         <a href="http://soroushmirzaei.github.io" target="_blank" class="contact-icon-wrapper" title="Website">
+                            <i class="fas fa-globe icon-style"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="border-t fixed bottom-0 w-full z-10" style="border-color: var(--border-color); background-color: rgba(17, 18, 19, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+        <div class="container mx-auto px-6 py-2 h-[var(--footer-height)] flex items-center justify-center text-center text-gray-500 text-xs md:text-sm">
+            <p>&copy; 2024 Soroush Mirzaei. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- Full-page scrolling logic ---
+            const mainContainer = document.getElementById('main-container');
+            const sections = document.querySelectorAll('.scroll-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            let currentIndex = 0;
+            let isScrolling = false;
+            let touchStartY = 0;
+            const totalSections = sections.length;
+
+            function goToSection(index) {
+                if (index < 0 || index >= totalSections || isScrolling) return;
+                isScrolling = true;
+                currentIndex = index;
+                mainContainer.style.transform = `translateY(-${currentIndex * 100}vh)`;
+                updateActiveStates();
+                setTimeout(() => { isScrolling = false; }, 1200);
+            }
+
+            function updateActiveStates() {
+                sections.forEach((section, index) => {
+                    section.classList.toggle('active-section', index === currentIndex);
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const linkHref = link.getAttribute('href');
+                    if (linkHref && linkHref.startsWith('#') && sections[currentIndex] && linkHref.substring(1) === sections[currentIndex].id) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            document.addEventListener('wheel', e => { if (!isScrolling) goToSection(currentIndex + (e.deltaY > 0 ? 1 : -1)); });
+            document.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; });
+            document.addEventListener('touchend', e => {
+                if (isScrolling) return;
+                const swipeDistance = touchStartY - e.changedTouches[0].clientY;
+                if (swipeDistance > 50) goToSection(currentIndex + 1);
+                else if (swipeDistance < -50) goToSection(currentIndex - 1);
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href')?.substring(1);
+                    if (!targetId) return;
+                    const targetIndex = Array.from(sections).findIndex(s => s.id === targetId);
+                    if (targetIndex !== -1) goToSection(targetIndex);
+                    // Close mobile menu on link click
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.classList.remove('active');
+                    }
+                });
+            });
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenuButton.classList.toggle('active');
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // --- Dynamic background gradient highlight logic ---
+            const highlight = document.getElementById('mouse-gradient-highlight');
+            if (highlight && !window.matchMedia("(pointer: coarse)").matches) {
+                 document.addEventListener('mousemove', e => {
+                    requestAnimationFrame(() => {
+                        highlight.style.left = `${e.clientX}px`;
+                        highlight.style.top = `${e.clientY}px`;
+                    });
+                });
+                setTimeout(() => {
+                    highlight.style.opacity = '0.08';
+                }, 300);
+            }
+            
+            // --- Card-specific reflection logic ---
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+
+            goToSection(0);
+        });
+    </script>
+</body>
+</html>

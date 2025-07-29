@@ -1,0 +1,164 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional CV using Standard LaTeX
+%
+% This template uses a classic, formal style with a
+% traditional serif font and a black & white design.
+% It uses standard packages and will compile on any
+% LaTeX distribution (like Overleaf) without extra setup.
+%
+% Author: Gemini
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\documentclass[10pt, a4paper]{article}
+
+%----- FONTS AND MARGINS -----
+\usepackage[T1]{fontenc} % Use default Computer Modern font for a classic look
+% Adjust margins for better visual balance
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry} 
+
+%----- PACKAGES -----
+% Using `hidelinks` to make links clickable without a visible box or color.
+\usepackage[hidelinks]{hyperref} 
+\usepackage{titlesec} % For customizing section headings
+\usepackage{enumitem} % For customizing lists (like bullet points)
+\usepackage{xcolor}   % Required for titlesec color definitions
+
+%----- LAYOUT CUSTOMIZATION -----
+\pagestyle{empty} % Removes page numbers
+\setlength{\parindent}{0pt} % Removes paragraph indentation
+\linespread{1.15} % Slightly increase line spacing for readability
+
+%----- SECTION HEADING CUSTOMIZATION -----
+% A classic style: centered, bold, small caps, with a horizontal rule below.
+\titleformat{\section}
+  {\normalfont\Large\bfseries\scshape\centering} % \scshape for small caps
+  {}{0em}{}
+  [\vspace{0.8ex}\titlerule] % Adds a horizontal line under the section title
+\titlespacing*{\section}{0pt}{3ex plus 1ex minus .2ex}{2ex plus .2ex}
+
+% Subsection format for job titles, degree names, etc.
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {}{0em}{}
+\titlespacing*{\subsection}{0pt}{1.5ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+%----------------------------------------------------------------------------------------
+%	HEADER DEFINITION
+%----------------------------------------------------------------------------------------
+
+% This command creates the header with your name and contact info
+\newcommand{\makecvheader}{
+    \begin{center}
+        {\Huge \bfseries \scshape Seyyed Soroush Mirzaei} \\ \vspace{3mm}
+        \hrule \vspace{2.5mm}
+        % The \href command makes the text clickable
+        \href{mailto:seyyedsoroushmirzaei@protonmail.com}{seyyedsoroushmirzaei@protonmail.com} $|$
+        Mashhad, Razavi Khorasan, Iran \\
+        \href{https://soroushmirzaei.github.io}{soroushmirzaei.github.io} $|$
+        \href{https://github.com/soroushmirzaei}{github.com/soroushmirzaei} $|$
+        \href{https://www.linkedin.com/in/seyyedsoroushmirzaei}{linkedin.com/in/seyyedsoroushmirzaei}
+    \end{center}
+    \vspace{6mm}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\makecvheader
+
+%----------------------------------------------------------------------------------------
+%	SUMMARY SECTION
+%----------------------------------------------------------------------------------------
+
+\section*{Summary}
+\begin{quote}
+\itshape A highly motivated and technically proficient graduate of Mechanical Engineering with advanced academic training and hands-on experience in Artificial Intelligence (AI), Machine Learning (ML), and Data Science. I possess a strong ability to analyze complex data sets and extract actionable insights to drive informed decision-making. With exceptional skills in implementing AI algorithms, including Artificial Neural Networks and ML techniques, I am adept at solving intricate problems that require precision and intelligent decision-making. I am deeply passionate about expanding my knowledge and contributing to the field by refining methodologies to achieve superior and more accurate results through cutting-edge AI and ML approaches.
+\end{quote}
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Experience}
+\subsection{Artificial Intelligence And Data Science Researcher}
+\textit{Sun Air Research Institute / Ferdowsi University of Mashhad -- Mashhad, Iran} \hfill \textbf{September 2023 -- Present}
+\begin{itemize}[leftmargin=1.5em, noitemsep, topsep=0.5ex]
+    \item Engaged in advanced research focusing on the application of machine learning and deep learning models to solve complex engineering problems.
+    \item Developed and implemented novel algorithms for data analysis and simulation, contributing to institutional research goals.
+    \item Collaborated with academic and research peers to publish findings in reputable scientific journals.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Education}
+\subsection{M.Sc. in Mechanical Engineering (Energy Conversion)}
+\textit{Ferdowsi University of Mashhad -- Mashhad, Iran} \hfill \textbf{Sep 2019 -- Sep 2023}
+\\ \textit{GPA: 17.23 / 20}
+
+\vspace{1em}
+
+\subsection{B.Sc. in Mechanical Engineering}
+\textit{Birjand University -- Birjand, Iran} \hfill \textbf{Sep 2014 -- Sep 2019}
+\\ \textit{GPA: 15.81 / 20}
+
+%----------------------------------------------------------------------------------------
+%	PUBLICATIONS SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Publications}
+\subsection{Utilizing Machine Learning Methods To Simulate The Fast Filling Process In CNG Stations}
+\textit{International Journal of Engine Research} \hfill \textbf{September 2023}
+\begin{quote}
+\small \itshape This research introduces a novel approach using machine learning and artificial neural networks (ANNs) to determine thermodynamic properties and simulate the vehicle tank filling process. ANN models replace traditional methods, offering faster simulations with minimal computational power. Validation is performed by comparing the results with the AGA8 and GERG-2008 equations of state, demonstrating the efficiency of the ANN models in simulating rapid CNG refueling.
+\end{quote}
+
+%----------------------------------------------------------------------------------------
+%	SKILLS SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Technical Skills}
+\begin{itemize}[leftmargin=4cm, labelwidth=3.8cm, labelsep=0.2cm, align=left, noitemsep]
+    \item[\textbf{Programming:}] Python (Core Concepts, Concurrency), NumPy, Pandas
+    \item[\textbf{Machine Learning:}] Scikit-Learn, TensorFlow, Keras, Model Selection \& Evaluation, Hyperparameter Tuning, Pipeline Integration
+    \item[\textbf{Computer Vision:}] OpenCV, Image \& Video Processing, Feature Detection, Object Recognition
+    \item[\textbf{Data Visualization:}] Matplotlib, Seaborn, Advanced Statistical \& Categorical Plots
+    \item[\textbf{Data Engineering:}] Data Preprocessing, Feature Engineering, Data Manipulation \& Transformation
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	CERTIFICATIONS SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Certifications}
+\begin{itemize}[leftmargin=1.5em, noitemsep, topsep=0.5ex]
+    \item \textbf{DeepLearning TensorFlow Developer Professional Certificate}, Coursera -- \textit{July 2023}
+    \item \textbf{Advanced Computer Vision with TensorFlow}, Coursera -- \textit{September 2022}
+    \item \textbf{Custom and Distributed Training with TensorFlow}, Coursera -- \textit{August 2022}
+    \item \textbf{Custom Models, Layers, and Loss Functions with TensorFlow}, Coursera -- \textit{July 2022}
+    \item \textbf{Convolutional Neural Networks in TensorFlow}, Coursera -- \textit{June 2022}
+    \item \textbf{Natural Language Processing in TensorFlow}, Coursera -- \textit{June 2022}
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	LANGUAGES & INTERESTS SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Languages}
+\begin{center}
+\textbf{Persian} (Native) \quad \textbf{English} (Advanced) \quad \textbf{German} (Intermediate)
+\end{center}
+
+\section{Interests}
+\begin{center}
+Programming and Artificial Intelligence \textbar{} Machine Learning and Deep Learning \textbar{} Prompt Engineering \& Generative AI
+\end{center}
+
+\end{document}
+

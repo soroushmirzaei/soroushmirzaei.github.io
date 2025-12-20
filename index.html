@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soroush Mirzaei | Interdisciplinary Engineer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* * --- DARK PERSIAN GREEN PALETTE ---
+         * A darker, richer teal palette inspired by Persian Green.
+        */
+        :root {
+            /* Deeper, richer primary background teal */
+            --primary-color: #00332e; 
+            /* Persian Green for text/icons (slightly darker than previous bright teal) */
+            --primary-color-text: #00a693; 
+            /* Darker, more visible border */
+            --border-color: rgba(0, 166, 147, 0.4); 
+            /* Darker card background */
+            --card-bg: rgba(5, 20, 20, 0.85); 
+            
+            --text-primary: #E0E1DD;
+            /* Secondary text - slightly muted teal */
+            --text-secondary: #4db6ac; 
+
+            --header-height: 4.5rem;
+            --footer-height: 2.5rem;
+            --scroll-duration: 1s;
+        }
+
+        html { height: 100%; scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #010808; /* Very deep black-teal */
+        }
+        
+        /* --- Mouse follower --- */
+        #mouse-gradient-highlight {
+            position: fixed;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--primary-color-text) 0%, transparent 50%);
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.5s ease-in-out;
+            filter: blur(100px);
+            z-index: 1;
+        }
+
+        #main-container {
+            height: 100%;
+            transition: transform var(--scroll-duration) cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            position: relative;
+            z-index: 2;
+        }
+        .scroll-section {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .section-content-wrapper {
+            width: 100%;
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto; 
+            overflow-x: hidden;
+            padding: 1rem 1.5rem; 
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .section-content-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* --- Liquid Glass Card --- */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Darker shadow */
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            /* UPDATED: Darker teal border on hover as requested */
+            border-color: #004d44; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 77, 68, 0.3);
+        }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 16px;
+            background: radial-gradient(circle 250px at var(--mouse-x) var(--mouse-y), rgba(0, 166, 147, 0.15), transparent 80%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card > * { position: relative; z-index: 1; }
+        
+        .header {
+            background: rgba(1, 8, 8, 0.85); /* Darker header */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            height: var(--header-height);
+            position: relative;
+            z-index: 50;
+        }
+        .nav-link.active { color: var(--primary-color-text); }
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* --- Timeline Styles --- */
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; width: 100%; }
+        .timeline::after { content: ''; position: absolute; width: 3px; background-color: var(--border-color); top: 0; bottom: 0; left: 20px; margin-left: -1.5px; border-radius: 3px; }
+        .timeline-container { padding-left: 50px; padding-right: 0; position: relative; background-color: inherit; width: 100%; margin-bottom: 2rem; }
+        .timeline-container::after { content: ''; position: absolute; width: 20px; height: 20px; left: 20px; background-color: var(--primary-color-text); border: 4px solid #010808; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; z-index: 1; }
+        .timeline-content { padding: 1rem 1.5rem; position: relative; border-radius: 12px; display: flex; align-items: center; gap: 1rem; width: 100%; }
+        
+        @media (min-width: 768px) {
+            .timeline::after { left: 50%; }
+            .timeline-container { padding: 0 40px; width: 50%; margin-bottom: 0px; display: flex; align-items: center; }
+            .timeline-container.right { left: 50%; }
+            .timeline-container.left { left: 0; }
+            .timeline-container.left::after { left: 100%; right: auto; }
+            .timeline-container.right::after { left: 0%; }
+            .timeline-container::after { top: 50%; transform: translate(-50%, -50%); }
+            .timeline-container { margin-bottom: -30px; }
+        }
+        
+        .info-card { display: flex; flex-direction: column; height: 100%; }
+        .project-tags span { background-color: rgba(0, 166, 147, 0.2); color: var(--primary-color-text); padding: 0.25rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 500; margin-right: 0.25rem; margin-bottom: 0.25rem; display: inline-block; border: 1px solid rgba(0, 166, 147, 0.3);}
+        .card-links a { color: var(--text-secondary); transition: color 0.3s ease; }
+        .card-links a:hover { color: var(--primary-color-text); }
+        .scroll-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s; }
+        .active-section .scroll-animate { opacity: 1; transform: translateY(0); }
+        
+        /* --- Buttons (Darker & Stronger Borders) --- */
+        .btn-glass { 
+            background: rgba(0, 166, 147, 0.25); /* Darker background */
+            backdrop-filter: blur(5px); 
+            -webkit-backdrop-filter: blur(5px); 
+            border: 1px solid rgba(0, 166, 147, 0.6); /* Stronger border */
+            color: var(--text-primary); 
+            font-weight: 600; 
+            padding: 0.75rem 1.5rem; 
+            border-radius: 0.5rem; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 0px rgba(255,255,255,0.05); 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer;
+        }
+        .btn-glass:hover { 
+            background: rgba(0, 166, 147, 0.4);
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 12px rgba(0,0,0,0.4), inset 0 1px 0px rgba(255,255,255,0.1); 
+            color: #fff; 
+            border-color: var(--primary-color-text);
+        }
+        .btn-glass-secondary { 
+            background: rgba(5, 35, 35, 0.5); 
+            border-color: rgba(0, 166, 147, 0.3);
+        }
+        .btn-glass-secondary:hover { 
+            background: rgba(5, 35, 35, 0.8); 
+            border-color: var(--primary-color-text);
+        }
+        .btn-glass.active-lang {
+            background: var(--primary-color-text);
+            color: #010808;
+            border-color: var(--primary-color-text);
+        }
+
+        /* --- Icons --- */
+        .icon-style { 
+            color: var(--primary-color-text);
+            text-shadow: 0 0 10px rgba(0, 166, 147, 0.5);
+            transition: all 0.3s ease; 
+            display: inline-block; 
+        }
+        .info-card .icon-style { font-size: 2rem; margin-bottom: 0.75rem; }
+        .section-title .icon-style { font-size: 2rem; }
+        .glass-card:hover .icon-style { 
+            color: #fff; 
+            text-shadow: 0 0 15px rgba(0, 166, 147, 0.9); 
+            transform: scale(1.1); 
+        }
+        .timeline-content .icon-style { font-size: 1.5rem; flex-shrink: 0; }
+        .timeline-text-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+
+        /* --- Mobile Menu --- */
+        #mobile-menu { 
+            background-color: rgba(1, 8, 8, 0.98);
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; 
+            opacity: 0; 
+            transform: translateY(-20px); 
+            pointer-events: none; 
+        }
+        #mobile-menu.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+        .hamburger { cursor: pointer; width: 24px; height: 24px; transition: all 0.25s; position: relative; }
+        .hamburger-top, .hamburger-middle, .hamburger-bottom { position: absolute; width: 24px; height: 2px; top: 0; left: 0; background: var(--text-primary); transform: rotate(0); transition: all 0.5s; }
+        .hamburger-middle { transform: translateY(7px); }
+        .hamburger-bottom { transform: translateY(14px); }
+        .active .hamburger-top { transform: rotate(45deg) translateY(6px) translateX(6px); }
+        .active .hamburger-middle { display: none; }
+        .active .hamburger-bottom { transform: rotate(-45deg) translateY(6px) translateX(-6px); }
+
+        /* --- Social/Link Icons Grid (UPDATED) --- */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns */
+            gap: 0.75rem; /* Gap between buttons */
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content horizontally */
+            gap: 0.5rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(0, 166, 147, 0.15);
+            border: 1px solid rgba(0, 166, 147, 0.3);
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            width: 100%; /* Fill the grid cell */
+            height: 100%; /* Ensure uniform height if needed */
+        }
+        
+        .social-btn:hover {
+            background: rgba(0, 166, 147, 0.3);
+            border-color: var(--primary-color-text);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .social-btn i {
+            color: var(--primary-color-text);
+            font-size: 1.1rem;
+        }
+        
+        .contact-category-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color-text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-category-desc {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            line-height: 1.4;
+        }
+
+        /* --- Floating Action Button (QR) - REFINED --- */
+        #fab-qr {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            /* Darker background */
+            background-color: #002622; 
+            /* Teal icon color */
+            color: var(--primary-color-text);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.4s ease;
+            /* Glassy border */
+            border: 1px solid rgba(0, 166, 147, 0.3);
+            backdrop-filter: blur(4px);
+            overflow: hidden; /* For the sheen effect */
+        }
+        
+        /* Remove rotation, add scale and shadow */
+        #fab-qr:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 166, 147, 0.4);
+            border-color: var(--primary-color-text);
+            color: #fff;
+        }
+
+        /* Liquid/Glassy Sheen Effect */
+        #fab-qr::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.15),
+                transparent
+            );
+            transition: none;
+        }
+
+        #fab-qr:hover::before {
+            animation: liquid-sheen 0.6s;
+        }
+
+        @keyframes liquid-sheen {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        #fab-qr i {
+            font-size: 1.6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Modals --- */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            transition: opacity 0.3s ease;
+        }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .modal.active .modal-container { transform: scale(1); }
+        
+        .modal-container { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            border: 1px solid var(--border-color); 
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.95);
+        }
+        .modal-header { border-bottom: 1px solid var(--border-color); }
+        .modal-body { background-color: rgba(0, 0, 0, 0.2); }
+
+        /* Typography sizing */
+        :root { font-size: clamp(14px, 1.5vw, 16px); }
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 0.5rem; }
+        h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+        h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+        p { font-size: 0.95rem; line-height: 1.6; color: #d1d5db; }
+        .text-accent { color: var(--primary-color-text); }
+        
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false;">
+
+    <div id="mouse-gradient-highlight"></div>
+
+    <header id="header" class="header fixed top-0 w-full z-50 flex items-center">
+        <nav class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#hero" class="nav-link text-lg font-bold hover:text-white transition-colors">Soroush Mirzaei</a>
+            <div class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="#skills" class="nav-link text-gray-300 hover:text-white transition-colors">Skills</a>
+                <a href="#journey" class="nav-link text-gray-300 hover:text-white transition-colors">Journey</a>
+                <a href="#projects" class="nav-link text-gray-300 hover:text-white transition-colors">Projects</a>
+                <a href="#publications" class="nav-link text-gray-300 hover:text-white transition-colors">Publications</a>
+                <a href="#certifications" class="nav-link text-gray-300 hover:text-white transition-colors">Certifications</a>
+                <a href="#languages" class="nav-link text-gray-300 hover:text-white transition-colors">Languages</a>
+                <a href="#contact" class="nav-link text-gray-300 hover:text-white transition-colors">Contact</a>
+            </div>
+            <button id="view-resume-btn" class="hidden lg:inline-flex btn-glass items-center gap-2 text-sm">
+                <i class="fas fa-file-lines"></i> <span>Resume</span>
+            </button>
+            <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none hamburger">
+                 <div class="hamburger-top"></div>
+                 <div class="hamburger-middle"></div>
+                 <div class="hamburger-bottom"></div>
+            </button>
+        </nav>
+    </header>
+    
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full z-40 pt-20">
+        <div class="flex flex-col items-center justify-center h-full space-y-6">
+            <a href="#about" class="nav-link text-xl text-gray-300">About</a>
+            <a href="#skills" class="nav-link text-xl text-gray-300">Skills</a>
+            <a href="#journey" class="nav-link text-xl text-gray-300">Journey</a>
+            <a href="#projects" class="nav-link text-xl text-gray-300">Projects</a>
+            <a href="#publications" class="nav-link text-xl text-gray-300">Publications</a>
+            <a href="#certifications" class="nav-link text-xl text-gray-300">Certifications</a>
+            <a href="#languages" class="nav-link text-xl text-gray-300">Languages</a>
+            <a href="#contact" class="nav-link text-xl text-gray-300">Contact</a>
+            <button id="view-resume-btn-mobile" class="btn-glass text-xl mt-4">View Resume</button>
+        </div>
+    </div>
+
+    <main id="main-container">
+
+        <!-- Hero Section -->
+        <section id="hero" class="scroll-section">
+            <div class="section-content-wrapper justify-center text-center">
+                 <div class="scroll-animate">
+                    <img src="https://avatars.githubusercontent.com/u/219490250" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/160x160/010808/00a693?text=SM';" 
+                        alt="Soroush Mirzaei" 
+                        class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 border-4 shadow-xl object-cover" style="border-color: var(--primary-color);">
+                    <h1 class="text-4xl md:text-xl font-extrabold tracking-tight mb-4">Seyyed Soroush Mirzaei</h1>
+                    <p class="text-xl md:text-lg font-bold mb-3 text-accent tracking-wide">Visionary Interdisciplinary Engineer</p>
+                    <p class="text-lg text-gray-300 mb-10 max-w-xl mx-auto font-light leading-relaxed">
+                        Unifying <span class="font-semibold text-white">Advanced AI</span> and <span class="font-semibold text-white">Mechanical Engineering</span> to build the next generation of autonomous systems.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                        <a href="#contact" class="nav-link btn-glass w-full sm:w-auto">Get In Touch</a>
+                        <a href="https://github.com/soroushmirzaei" target="_blank" class="btn-glass btn-glass-secondary w-full sm:w-auto gap-2">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="scroll-section">
+             <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate text-center max-w-4xl mx-auto">
+                    <h2 class="section-title font-bold mb-8 justify-center">
+                        <i class="fas fa-user-astronaut icon-style"></i> About Me
+                    </h2>
+                    <div class="glass-card p-8 md:p-10 text-left">
+                        <p class="text-lg mb-6 leading-relaxed">
+                            Visionary Interdisciplinary Engineer and Strategic Innovator with a high-value dual-competency in <span class="text-accent font-semibold">Mechanical Engineering</span> and <span class="text-accent font-semibold">Advanced AI</span>. I specialize in architecting "Digital Twin" ecosystems and "Agentic AI" workflows—bridging the gap between physical systems and autonomous digital intelligence.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                             A proactive theorist and idea generator, I offer a unique competitive advantage: the ability to translate complex mechanical realities into predictive, data-driven Industry 5.0 solutions. Distinguished by exceptional adaptability and strict punctuality, I am dedicated to driving institutional growth through precise documentation and future-proof technologies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full text-center">
+                     <h2 class="section-title font-bold mb-10 justify-center">
+                        <i class="fas fa-layer-group icon-style"></i> Technical Competencies
+                    </h2>
+                    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-left">
+                        <!-- Engineering -->
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-drafting-compass icon-style"></i>
+                            <h3>Engineering & CAD</h3>
+                            <p class="text-sm mt-2">SolidWorks, Ansys Fluent, ESI PAM-RTM, Mold Flow Analysis, DFM</p>
+                        </div>
+                        <!-- Deep Learning -->
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-brain icon-style"></i>
+                            <h3>Deep Learning</h3>
+                            <p class="text-sm mt-2">TensorFlow, Keras, PyTorch, GradientTape, Custom Layers, Neural Architecture Search</p>
+                        </div>
+                        <!-- Computer Vision -->
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-eye icon-style"></i>
+                            <h3>Computer Vision</h3>
+                            <p class="text-sm mt-2">OpenCV, ResNet-50, U-Net, Mask-RCNN, YOLO, Image Segmentation, Tracking</p>
+                        </div>
+                        <!-- NLP -->
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-comments icon-style"></i>
+                            <h3>NLP & GenAI</h3>
+                            <p class="text-sm mt-2">RNNs, LSTMs, GRUs, Transformers, Tokenization, Prompt Engineering</p>
+                        </div>
+                        <!-- Software -->
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-laptop-code icon-style"></i>
+                            <h3>Software & Tools</h3>
+                            <p class="text-sm mt-2">Python, Git/GitHub, MATLAB, SQL, API Integration, MS Project, Office</p>
+                        </div>
+                        <!-- Professional -->
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-briefcase icon-style"></i>
+                            <h3>Professional Skills</h3>
+                            <p class="text-sm mt-2">Strategic Planning, Technical Documentation, Ideation, Agile, Punctuality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Section -->
+        <section id="journey" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full">
+                    <div class="text-center mb-10">
+                        <h2 class="section-title font-bold justify-center">
+                            <i class="fas fa-route icon-style"></i> Professional Journey
+                        </h2>
+                    </div>
+                    <div class="timeline">
+                        <!-- Job 1 -->
+                        <div class="timeline-container left">
+                            <div class="timeline-content glass-card">
+                                <i class="fas fa-industry icon-style"></i>
+                                <div class="timeline-text-content">
+                                    <h3>Mechanical & Manufacturing Engineer</h3>
+                                    <p class="text-accent font-medium text-sm">Ferdowsi University of Mashhad</p>
+                                    <p class="text-xs opacity-70 mt-1">July 2025 - Dec 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Job 2 -->
+                        <div class="timeline-container right">
+                            <div class="timeline-content glass-card">
+                                <i class="fas fa-microchip icon-style"></i>
+                                <div class="timeline-text-content">
+                                    <h3>AI & Data Science Researcher</h3>
+                                    <p class="text-accent font-medium text-sm">Ferdowsi University of Mashhad</p>
+                                    <p class="text-xs opacity-70 mt-1">Sep 2023 - July 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Education 1 -->
+                        <div class="timeline-container left">
+                            <div class="timeline-content glass-card">
+                                <i class="fas fa-graduation-cap icon-style"></i>
+                                <div class="timeline-text-content">
+                                    <h3>M.Sc. Mechanical Engineering</h3>
+                                    <p class="text-sm mb-1">Energy Conversion (GPA: 17.23/20)</p>
+                                    <p class="text-accent font-medium text-sm">Ferdowsi University</p>
+                                    <p class="text-xs opacity-70 mt-1">2019 - 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Education 2 -->
+                        <div class="timeline-container right">
+                            <div class="timeline-content glass-card">
+                                <i class="fas fa-university icon-style"></i>
+                                <div class="timeline-text-content">
+                                    <h3>B.Sc. Mechanical Engineering</h3>
+                                    <p class="text-accent font-medium text-sm">Birjand University</p>
+                                    <p class="text-xs opacity-70 mt-1">2014 - 2019</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full">
+                    <div class="text-center mb-10">
+                        <h2 class="section-title font-bold justify-center">
+                            <i class="fas fa-code-branch icon-style"></i> Key Technical Projects
+                        </h2>
+                    </div>
+                    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-camera icon-style text-3xl mb-4"></i>
+                            <h3 class="mb-3">Advanced Vision Systems</h3>
+                            <p class="text-sm mb-4">Designed custom object detection models (ResNet-50, R-CNN) and semantic segmentation architectures (U-Net, Mask-RCNN) for unstructured industrial environments. Implemented Saliency Maps for model interpretability.</p>
+                            <div class="project-tags mt-auto">
+                                <span>Object Detection</span><span>Segmentation</span><span>Transfer Learning</span>
+                            </div>
+                        </div>
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-magic icon-style text-3xl mb-4"></i>
+                            <h3 class="mb-3">NLP & Generative AI</h3>
+                            <p class="text-sm mb-4">Developed sophisticated Sequence-to-Sequence models (LSTMs, GRUs) for natural language tasks. Built a generative text model trained on large-scale corpora for creative sequence prediction.</p>
+                            <div class="project-tags mt-auto">
+                                <span>Seq2Seq</span><span>LSTM/GRU</span><span>Generative AI</span>
+                            </div>
+                        </div>
+                        <div class="info-card glass-card p-6">
+                            <i class="fas fa-server icon-style text-3xl mb-4"></i>
+                            <h3 class="mb-3">HPC & Architecture</h3>
+                            <p class="text-sm mb-4">Engineered custom training loops using TensorFlow GradientTape. Implemented Distributed Training strategies across multi-GPU/TPU cores. Designed Siamese Networks with contrastive loss.</p>
+                            <div class="project-tags mt-auto">
+                                <span>Distributed Training</span><span>GradientTape</span><span>HPC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full text-center">
+                    <h2 class="section-title font-bold mb-10 justify-center">
+                       <i class="fas fa-book-open icon-style"></i> Publications
+                    </h2>
+                    <div class="max-w-4xl mx-auto">
+                        <div class="info-card glass-card p-8 text-left">
+                            <h3 class="text-xl mb-2">Utilizing Machine Learning Methods To Simulate The Fast Filling Process In CNG Stations</h3>
+                            <p class="text-accent text-sm font-semibold mb-4">Master of Science Thesis, Ferdowsi University of Mashhad (Sep 2023)</p>
+                            <p class="mb-4 text-gray-300">This thesis introduces a novel approach using machine learning and artificial neural networks (ANNs) to determine thermodynamic properties and simulate the vehicle tank filling process. ANN models replace traditional methods, offering faster simulations with minimal computational power. Validated against AGA8 and GERG-2008 equations of state.</p>
+                            <div class="project-tags"><span>Machine Learning</span><span>ANN</span><span>Thermodynamics</span><span>Simulation</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="scroll-section">
+            <div class="section-content-wrapper justify-center">
+                <div class="scroll-animate w-full text-center">
+                     <h2 class="section-title font-bold mb-10 justify-center">
+                        <i class="fas fa-certificate icon-style"></i> Professional Certifications
+                    </h2>
+                    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-left">
+                        <div class="info-card glass-card p-5">
+                            <h3 class="text-base">DeepLearning.AI TensorFlow Developer</h3>
+                            <p class="text-xs text-gray-400 mt-2">Validated expertise in building and deploying scalable AI models across Computer Vision, NLP, and Time Series domains.</p>
+                        </div>
+                        <div class="info-card glass-card p-5">
+                            <h3 class="text-base">Advanced Computer Vision</h3>
+                            <p class="text-xs text-gray-400 mt-2">Mastered advanced techniques including object detection, segmentation (U-Net, Mask-RCNN), and model interpretability.</p>
+                        </div>
+                        <div class="info-card glass-card p-5">
+                            <h3 class="text-base">Custom & Distributed Training</h3>
+                            <p class="text-xs text-gray-400 mt-2">Proficiency in custom training loops (GradientTape) and distributed training strategies for HPC.</p>
+                        </div>
+                        <div class="info-card glass-card p-5">
+                            <h3 class="text-base">Custom Models, Layers & Loss Functions</h3>
+                            <p class="text-xs text-gray-400 mt-2">Acquired deep architectural control capabilities, building custom layers for specialized problem-solving.</p>
+                        </div>
+                        <div class="info-card glass-card p-5">
+                            <h3 class="text-base">NLP in TensorFlow</h3>
+                            <p class="text-xs text-gray-400 mt-2">Specialized in sequence modeling and text processing using RNNs, GRUs, and LSTMs for sentiment analysis.</p>
+                        </div>
+                        <div class="info-card glass-card p-5">
+                            <h3 class="text-base">Introduction to TensorFlow for AI</h3>
+                            <p class="text-xs text-gray-400 mt-2">Established a strong foundation in the end-to-end machine learning lifecycle and model optimization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Separated Languages Section -->
+        <section id="languages" class="scroll-section">
+             <div class="section-content-wrapper justify-center">
+                 <div class="scroll-animate max-w-4xl mx-auto text-center w-full">
+                    <h2 class="section-title font-bold mb-10 justify-center">
+                        <i class="fas fa-language icon-style"></i> Languages
+                    </h2>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="glass-card px-8 py-4 w-48">
+                                <h3 class="text-center">Persian</h3>
+                                <p class="text-center text-sm text-gray-400">Native</p>
+                        </div>
+                        <div class="glass-card px-8 py-4 w-48">
+                                <h3 class="text-center">English</h3>
+                                <p class="text-center text-sm text-gray-400">Advanced</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section with Card Structure -->
+        <section id="contact" class="scroll-section">
+             <div class="section-content-wrapper justify-center">
+                 <div class="scroll-animate max-w-6xl mx-auto text-center w-full">
+                    
+                    <h2 class="section-title font-bold mb-6 justify-center">
+                        <i class="fas fa-paper-plane icon-style"></i> Get In Touch
+                    </h2>
+                    <p class="mb-8 text-lg">Open to new opportunities in AI, Digital Twins, and Smart Manufacturing.</p>
+
+                    <!-- ADDED: Telegram buttons alongside email -->
+                    <div class="mb-12 flex justify-center flex-wrap gap-4">
+                        <a href="mailto:seyyedsoroushmirzaei@protonmail.com" class="btn-glass text-lg gap-2">
+                            <i class="fas fa-envelope"></i> Send Email
+                        </a>
+                        <a href="https://t.me/SorousMirzaei" target="_blank" class="btn-glass text-lg gap-2">
+                            <i class="fab fa-telegram-plane"></i> Telegram
+                        </a>
+                        <a href="https://t.me/NeuroVance" target="_blank" class="btn-glass text-lg gap-2">
+                            <i class="fas fa-bullhorn"></i> Channel
+                        </a>
+                    </div>
+                    
+                    <!-- Card-Based Links -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                        
+                        <!-- Card 1: Professional -->
+                        <div class="glass-card p-6 flex flex-col items-center">
+                            <i class="fas fa-briefcase icon-style mb-3" style="font-size: 2rem;"></i>
+                            <h4 class="contact-category-title">Developer & Professional</h4>
+                            <p class="contact-category-desc">My code repositories and professional network.</p>
+                            <div class="social-grid">
+                                <a href="https://github.com/soroushmirzaei" target="_blank" class="social-btn">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                                <a href="https://www.linkedin.com/in/sorousmirzaei/" target="_blank" class="social-btn">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="https://stackoverflow.com/users/19121443/soroush-mirzaei" target="_blank" class="social-btn">
+                                    <i class="fab fa-stack-overflow"></i> StackOverflow
+                                </a>
+                                <a href="https://huggingface.co/soroushmirzaei" target="_blank" class="social-btn">
+                                    <i class="fas fa-robot"></i> HuggingFace
+                                </a>
+                                <a href="https://www.kaggle.com/sydsrsmrz" target="_blank" class="social-btn">
+                                    <i class="fab fa-kaggle"></i> Kaggle
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Social -->
+                        <div class="glass-card p-6 flex flex-col items-center">
+                            <i class="fas fa-share-alt icon-style mb-3" style="font-size: 2rem;"></i>
+                            <h4 class="contact-category-title">Social & Creative</h4>
+                            <p class="contact-category-desc">Connect with me on social media and creative platforms.</p>
+                            <div class="social-grid">
+                                <a href="https://x.com/sorousmirzaei" target="_blank" class="social-btn">
+                                    <i class="fab fa-x-twitter"></i> Twitter
+                                </a>
+                                <a href="https://www.instagram.com/sorousmirzaie" target="_blank" class="social-btn">
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </a>
+                                <a href="https://soroushmirzaei.medium.com/" target="_blank" class="social-btn">
+                                    <i class="fab fa-medium"></i> Medium
+                                </a>
+                                 <a href="https://www.pinterest.com/sorousmirzaei/" target="_blank" class="social-btn">
+                                    <i class="fab fa-pinterest"></i> Pinterest
+                                </a>
+                                <a href="https://soundcloud.com/soroushmirzaei" target="_blank" class="social-btn">
+                                    <i class="fab fa-soundcloud"></i> SoundCloud
+                                </a>
+                                <a href="https://open.spotify.com/user/31yy2ufrkd24iojhxcupfbvpqosi" target="_blank" class="social-btn">
+                                    <i class="fab fa-spotify"></i> Spotify
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Learning -->
+                        <div class="glass-card p-6 flex flex-col items-center">
+                            <i class="fas fa-graduation-cap icon-style mb-3" style="font-size: 2rem;"></i>
+                            <h4 class="contact-category-title">Certifications & Learning</h4>
+                            <p class="contact-category-desc">Track my learning journey and achievements.</p>
+                            <div class="social-grid">
+                                 <a href="https://www.coursera.org/learner/soroushmirzaei" target="_blank" class="social-btn">
+                                    <i class="fas fa-graduation-cap"></i> Coursera
+                                </a>
+                                <a href="https://www.duolingo.com/profile/soroushmirzaei" target="_blank" class="social-btn">
+                                    <i class="fas fa-language"></i> Duolingo
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="modal-container rounded-lg shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col relative">
+            <div class="modal-header flex justify-between items-center p-4 flex-shrink-0">
+                <div class="flex items-center gap-4">
+                    <h3 class="text-lg font-semibold text-white">Resume Preview</h3>
+                    <!-- Language Toggle Buttons -->
+                    <div class="flex bg-[rgba(0,166,147,0.15)] rounded-md p-1 border border-[rgba(0,166,147,0.3)]">
+                        <button id="lang-en-btn" class="px-3 py-1 text-xs font-semibold rounded transition-colors active-lang">English</button>
+                        <button id="lang-fa-btn" class="px-3 py-1 text-xs font-semibold rounded transition-colors text-gray-400 hover:text-white">Persian</button>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="download-resume-btn" href="soroush-mirzaei-eng.pdf" download="soroush-mirzaei-eng.pdf" class="btn-glass btn-glass-secondary text-sm py-2 px-4 gap-2">
+                         <i class="fas fa-download"></i> <span class="hidden sm:inline">Download PDF</span>
+                    </a>
+                    <button id="close-modal-btn" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body flex-grow p-1 md:p-2 rounded-b-lg">
+                <iframe id="resume-iframe" src="soroush-mirzaei-eng.pdf#toolbar=0&navpanes=0" class="w-full h-full border-0 rounded" title="Soroush Mirzaei Resume"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADDED: Floating QR Button -->
+    <div id="fab-qr">
+        <i class="fas fa-qrcode"></i>
+    </div>
+
+    <!-- ADDED: QR Code Modal -->
+    <div id="qr-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="modal-container rounded-lg shadow-2xl p-6 flex flex-col items-center justify-center relative max-w-sm w-full">
+            <button id="close-qr-btn" class="absolute top-3 right-3 text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h3 class="text-xl font-bold mb-4 text-white">Scan to Visit</h3>
+            <div class="p-2 rounded-lg">
+                <!-- Placeholder QR Code - Replace src with actual QR code -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&bgcolor=041111&color=ffffff&data=soroushmirzaei.github.io" alt="Website QR Code" class="w-48 h-48">
+            </div>
+            <p class="mt-4 text-center text-sm text-gray-400">Scan this code to view my portfolio on your mobile device.</p>
+        </div>
+    </div>
+    
+    <footer class="border-t fixed bottom-0 w-full z-10" style="border-color: var(--border-color); background-color: rgba(1, 8, 8, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+        <div class="container mx-auto px-6 h-[var(--footer-height)] flex items-center justify-center text-center text-gray-500 text-xs">
+            <p>&copy; 2025 Soroush Mirzaei. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainContainer = document.getElementById('main-container');
+            const sections = document.querySelectorAll('.scroll-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const highlight = document.getElementById('mouse-gradient-highlight');
+            const cards = document.querySelectorAll('.glass-card');
+            
+            // Resume Modal Elements
+            const resumeModal = document.getElementById('resume-modal');
+            const openResumeBtn = document.getElementById('view-resume-btn');
+            const openResumeBtnMobile = document.getElementById('view-resume-btn-mobile');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            
+            // QR Modal Elements
+            const qrModal = document.getElementById('qr-modal');
+            const fabQr = document.getElementById('fab-qr');
+            const closeQrBtn = document.getElementById('close-qr-btn');
+            
+            // Resume Language Toggle Elements
+            const langEnBtn = document.getElementById('lang-en-btn');
+            const langFaBtn = document.getElementById('lang-fa-btn');
+            const resumeIframe = document.getElementById('resume-iframe');
+            const downloadResumeBtn = document.getElementById('download-resume-btn');
+
+            let currentIndex = 0;
+            let isScrolling = false;
+            let touchStartY = 0;
+            const totalSections = sections.length;
+
+            // General Modal Functions
+            function openModal(modal) {
+                if (!modal) return;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                mainContainer.setAttribute('aria-hidden', 'true');
+            }
+
+            function closeModal(modal) {
+                if (!modal) return;
+                modal.classList.remove('active');
+                document.body.style.overflow = 'hidden'; 
+                mainContainer.removeAttribute('aria-hidden');
+            }
+
+            // Resume Modal Listeners
+            if (openResumeBtn) openResumeBtn.addEventListener('click', () => openModal(resumeModal));
+            if (openResumeBtnMobile) openResumeBtnMobile.addEventListener('click', () => openModal(resumeModal));
+            if (closeModalBtn) closeModalBtn.addEventListener('click', () => closeModal(resumeModal));
+            if (resumeModal) resumeModal.addEventListener('click', e => { if (e.target === resumeModal) closeModal(resumeModal); });
+            
+            // QR Modal Listeners
+            if (fabQr) fabQr.addEventListener('click', () => openModal(qrModal));
+            if (closeQrBtn) closeQrBtn.addEventListener('click', () => closeModal(qrModal));
+            if (qrModal) qrModal.addEventListener('click', e => { if (e.target === qrModal) closeModal(qrModal); });
+
+            // Global Escape Key Listener
+            document.addEventListener('keydown', e => { 
+                if (e.key === 'Escape') {
+                    if (resumeModal && resumeModal.classList.contains('active')) closeModal(resumeModal);
+                    if (qrModal && qrModal.classList.contains('active')) closeModal(qrModal);
+                }
+            });
+            
+            // Resume Toggle Logic
+            function setResumeLanguage(lang) {
+                if (lang === 'en') {
+                    langEnBtn.classList.add('active-lang', 'text-[#010808]');
+                    langEnBtn.classList.remove('text-gray-400', 'hover:text-white');
+                    
+                    langFaBtn.classList.remove('active-lang', 'text-[#010808]');
+                    langFaBtn.classList.add('text-gray-400', 'hover:text-white');
+                    
+                    resumeIframe.src = "soroush-mirzaei-eng.pdf#toolbar=0&navpanes=0";
+                    downloadResumeBtn.href = "soroush-mirzaei-eng.pdf";
+                    downloadResumeBtn.download = "soroush-mirzaei-eng.pdf";
+                } else {
+                    langFaBtn.classList.add('active-lang', 'text-[#010808]');
+                    langFaBtn.classList.remove('text-gray-400', 'hover:text-white');
+                    
+                    langEnBtn.classList.remove('active-lang', 'text-[#010808]');
+                    langEnBtn.classList.add('text-gray-400', 'hover:text-white');
+                    
+                    // Assuming the persian file is named soroush-mirzaei-per.pdf
+                    resumeIframe.src = "soroush-mirzaei-per.pdf#toolbar=0&navpanes=0";
+                    downloadResumeBtn.href = "soroush-mirzaei-per.pdf";
+                    downloadResumeBtn.download = "soroush-mirzaei-per.pdf";
+                }
+            }
+
+            if (langEnBtn) langEnBtn.addEventListener('click', () => setResumeLanguage('en'));
+            if (langFaBtn) langFaBtn.addEventListener('click', () => setResumeLanguage('fa'));
+
+            function goToSection(index) {
+                if (index < 0 || index >= totalSections || isScrolling) return;
+                // Prevent scrolling if any modal is active
+                if (resumeModal.classList.contains('active') || qrModal.classList.contains('active')) return;
+
+                isScrolling = true;
+                currentIndex = index;
+                mainContainer.style.transform = `translateY(-${currentIndex * 100}vh)`;
+                updateActiveStates();
+                setTimeout(() => { isScrolling = false; }, 1000); 
+            }
+
+            function updateActiveStates() {
+                sections.forEach((section, index) => {
+                    section.classList.toggle('active-section', index === currentIndex);
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const linkHref = link.getAttribute('href');
+                    if (linkHref && linkHref.startsWith('#') && sections[currentIndex] && linkHref.substring(1) === sections[currentIndex].id) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            document.addEventListener('wheel', e => {
+                if (!isScrolling && !resumeModal.classList.contains('active') && !qrModal.classList.contains('active')) {
+                    goToSection(currentIndex + (e.deltaY > 0 ? 1 : -1));
+                }
+            });
+            
+            document.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; });
+            document.addEventListener('touchend', e => {
+                if (isScrolling || resumeModal.classList.contains('active') || qrModal.classList.contains('active')) return;
+                const swipeDistance = touchStartY - e.changedTouches[0].clientY;
+                if (swipeDistance > 50) goToSection(currentIndex + 1);
+                else if (swipeDistance < -50) goToSection(currentIndex - 1);
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href')?.substring(1);
+                    if (!targetId) return;
+                    const targetIndex = Array.from(sections).findIndex(s => s.id === targetId);
+                    if (targetIndex !== -1) goToSection(targetIndex);
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.classList.remove('active');
+                    }
+                });
+            });
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenuButton.classList.toggle('active');
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('active');
+            });
+            
+            if (highlight && !window.matchMedia("(pointer: coarse)").matches) {
+                 document.addEventListener('mousemove', e => {
+                    requestAnimationFrame(() => {
+                        highlight.style.left = `${e.clientX}px`;
+                        highlight.style.top = `${e.clientY}px`;
+                    });
+                });
+                setTimeout(() => { highlight.style.opacity = '0.15'; }, 300);
+            }
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                });
+            });
+
+            goToSection(0);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+name: Execute On Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Repository Contents
+        uses: actions/checkout@v2
+        
+      - name: Clean Up Files
+        run: |
+          git checkout --orphan latest_branch
+          git config --local user.email "seyyedsoroushmirzaei@protonmail.com"
+          git config --local user.name "Soroush Mirzaei"
+          git add -A
+          git commit -am "Updated $(TZ='Asia/Tehran' date '+%Y-%m-%d %H:%M %Z')"
+          git branch -D main
+          git branch -m main
+          git push -f origin main
+
+      - name: Push Changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main

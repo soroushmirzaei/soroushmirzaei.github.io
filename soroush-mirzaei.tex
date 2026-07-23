@@ -1,0 +1,198 @@
+\documentclass[10pt, a4paper]{article}
+
+%----- FONTS AND MARGINS -----
+\usepackage[T1]{fontenc} % Use default Computer Modern font for a classic look
+% Adjust margins for better visual balance
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry} 
+
+%----- PACKAGES -----
+% Using `hidelinks` to make links clickable without a visible box or color.
+\usepackage[hidelinks]{hyperref} 
+\usepackage{titlesec} % For customizing section headings
+\usepackage{enumitem} % For customizing lists (like bullet points)
+\usepackage{xcolor}   % Required for titlesec color definitions
+
+%----- LAYOUT CUSTOMIZATION -----
+\pagestyle{empty} % Removes page numbers
+\setlength{\parindent}{0pt} % Removes paragraph indentation
+\linespread{1.15} % Slightly increase line spacing for readability
+
+%----- SECTION HEADING CUSTOMIZATION -----
+% A classic style: centered, bold, small caps, with a horizontal rule below.
+\titleformat{\section}
+  {\normalfont\Large\bfseries\scshape\centering} 
+  {}{0em}{}
+  [\vspace{0.8ex}\titlerule] 
+\titlespacing*{\section}{0pt}{3ex plus 1ex minus .2ex}{2ex plus .2ex}
+
+% Subsection format for job titles, degree names, etc.
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {}{0em}{}
+\titlespacing*{\subsection}{0pt}{1.5ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+%----------------------------------------------------------------------------------------
+%	HEADER DEFINITION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\makecvheader}{
+    \begin{center}
+        {\Huge \bfseries \scshape Seyyed Soroush Mirzaei} \\ \vspace{3mm}
+        \hrule \vspace{2.5mm}
+        \href{mailto:seyyedsoroushmirzaei@protonmail.com}{seyyedsoroushmirzaei@protonmail.com} $|$
+        Mashhad, Razavi Khorasan, Iran \\
+        \href{https://soroushmirzaei.github.io}{soroushmirzaei.github.io} $|$
+        \href{https://github.com/soroushmirzaei}{github.com/soroushmirzaei} $|$
+        \href{https://www.linkedin.com/in/seyyedsoroushmirzaei}{linkedin.com/in/seyyedsoroushmirzaei}
+    \end{center}
+    \vspace{6mm}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\makecvheader
+
+%----------------------------------------------------------------------------------------
+%	SUMMARY SECTION
+%----------------------------------------------------------------------------------------
+
+\section*{Professional Summary}
+\begin{quote}
+\itshape
+Visionary Interdisciplinary Engineer and Strategic Innovator with a high-value dual-competency in Mechanical Engineering and Advanced AI. I specialize in architecting "Digital Twin" ecosystems and "Agentic AI" workflows—bridging the gap between physical systems and autonomous digital intelligence. A proactive theorist and idea generator, I offer a unique competitive advantage: the ability to translate complex mechanical realities into predictive, data-driven Industry 5.0 solutions. Distinguished by exceptional adaptability and strict punctuality, I am dedicated to driving institutional growth through precise documentation, collaborative leadership, and the deployment of future-proof technologies.
+\end{quote}
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Professional Experience}
+
+\subsection{Mechanical Engineering \& Manufacturing Engineer}
+\textit{Ferdowsi University of Mashhad -- Mashhad, Iran} \hfill \textbf{July 2025 -- December 2025}
+\begin{itemize}[leftmargin=1.5em, noitemsep, topsep=0.5ex]
+    \item \textbf{Precision Design \& Modeling:} Engineered complex 3D molding components using \textbf{SolidWorks}, transforming conceptual sketches into high-fidelity manufacturing blueprints.
+    \item \textbf{Simulation-Driven Optimization:} Optimized manufacturing integrity by conducting advanced mold flow simulations with \textbf{Ansys Fluent} and \textbf{ESI PAM-RTM}, proactively identifying defects and enhancing material performance.
+    \item \textbf{Operational Supervision:} Directed quality assurance protocols on production lines, collaborating with cross-functional teams to streamline workflows and ensure rigorous adherence to industrial standards.
+\end{itemize}
+
+\subsection{Artificial Intelligence \& Data Science Researcher}
+\textit{Ferdowsi University of Mashhad -- Mashhad, Iran} \hfill \textbf{September 2023 -- July 2025}
+\begin{itemize}[leftmargin=1.5em, noitemsep, topsep=0.5ex]
+    \item \textbf{Predictive Lifecycle Modeling:} Pioneered the development of LSTM and RNN sequence models to accurately forecast the Remaining Useful Lifetime (RUL) and State of Health (SOH) of energy storage systems.
+    \item \textbf{Strategic Failure Analysis:} Identified critical failure factors in energy storage systems through advanced data analysis. Developed a specialized \textbf{Computer Vision model} to automatically identify and classify physical causes of failure from imagery.
+    \item \textbf{Generative Engineering AI:} Architected neural networks that function as "Intelligent Design Advisors," recommending optimal production parameters to engineering teams and reducing design iteration cycles.
+    \item \textbf{Automated Vision Pipelines:} Deployed production-grade Computer Vision models to digitize analog instrumentation, engineering a robust pipeline that logs real-time operational data into SQL databases.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	KEY TECHNICAL PROJECTS
+%----------------------------------------------------------------------------------------
+
+\section{Key Technical Projects}
+
+\subsection{Advanced Computer Vision \& Object Detection Systems}
+\begin{itemize}[leftmargin=1.5em, noitemsep, topsep=0.5ex]
+    \item \textbf{Custom Model Deployment:} Designed and deployed high-performance object detection models (ResNet-50, R-CNN), utilizing Transfer Learning to achieve high accuracy on constrained datasets.
+    \item \textbf{Semantic Segmentation:} Implemented state-of-the-art segmentation architectures (U-Net, Mask-RCNN) to isolate and analyze complex features within unstructured industrial environments.
+    \item \textbf{Model Interpretability:} Integrated Saliency Maps and Class Activation Maps to debug neural network decision-making, ensuring transparency and trust in AI predictions.
+\end{itemize}
+
+\subsection{Natural Language Processing \& Generative AI}
+\begin{itemize}[leftmargin=1.5em, noitemsep, topsep=0.5ex]
+    \item \textbf{Sequence Modeling:} Developed sophisticated Sequence-to-Sequence models (LSTMs, GRUs) to process natural language, demonstrating capability in handling temporal and sequential data dependencies.
+    \item \textbf{Generative AI Application:} Built and trained a generative text model on large-scale corpora, handling the full NLP pipeline from tokenization to vectorization and creative sequence prediction.
+\end{itemize}
+
+\subsection{High-Performance Computing \& Architecture}
+\begin{itemize}[leftmargin=1.5em, noitemsep, topsep=0.5ex]
+    \item \textbf{Custom Optimization:} Engineered custom training loops using \textbf{TensorFlow GradientTape}, allowing for granular control over model optimization and non-standard loss calculations.
+    \item \textbf{Distributed Systems:} Implemented Distributed Training strategies across multi-GPU/TPU cores, significantly reducing model training time and demonstrating proficiency with scalable AI infrastructure.
+    \item \textbf{Siamese Networks:} Designed specialized neural architectures with contrastive loss functions to solve complex similarity and verification tasks.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Education}
+\subsection{M.Sc. in Mechanical Engineering (Energy Conversion)}
+\textit{Ferdowsi University of Mashhad -- Mashhad, Iran} \hfill \textbf{Sep 2019 -- Sep 2023}
+\\ \textit{GPA: 17.23 / 20 (Top 10\%)}
+
+\vspace{0.5em}
+
+\subsection{B.Sc. in Mechanical Engineering}
+\textit{Birjand University -- Birjand, Iran} \hfill \textbf{Sep 2014 -- Sep 2019}
+\\ \textit{GPA: 15.81 / 20}
+
+%----------------------------------------------------------------------------------------
+%	PUBLICATIONS SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Publications}
+\subsection{Utilizing Machine Learning Methods To Simulate The Fast Filling Process In CNG Stations}
+\textit{Master of Science Thesis, Ferdowsi University of Mashhad} \hfill \textbf{September 2023}
+\begin{quote}
+\small \itshape This thesis introduces a novel approach using machine learning and artificial neural networks (ANNs) to determine thermodynamic properties and simulate the vehicle tank filling process. ANN models replace traditional methods, offering faster simulations with minimal computational power. Validated against AGA8 and GERG-2008 equations of state.
+\end{quote}
+
+%----------------------------------------------------------------------------------------
+%	SKILLS SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Technical \& Professional Competencies}
+\begin{itemize}[leftmargin=4cm, labelwidth=3.8cm, labelsep=0.2cm, align=left, noitemsep]
+    \item[\textbf{Software \& Tools:}] Microsoft Office (Excel, PowerPoint), Microsoft Project, Git/GitHub, API Requests \& Integration
+    \item[\textbf{Engineering \& CAD:}] SolidWorks, Ansys Fluent, ESI PAM-RTM, Mold Flow Analysis, DFM
+    \item[\textbf{Deep Learning:}] TensorFlow, Keras, PyTorch, GradientTape, Custom Layers, Neural Architecture Search
+    \item[\textbf{Computer Vision:}] OpenCV, ResNet-50, U-Net, Mask-RCNN, YOLO, Image Segmentation, Object Tracking
+    \item[\textbf{NLP \& GenAI:}] RNNs, LSTMs, GRUs, Transformers, Tokenization, Text Vectorization, Prompt Engineering
+    \item[\textbf{Professional Skills:}] Strategic Planning, Technical Documentation, Innovation \& Ideation, Team Collaboration, Punctuality, Adaptability, Agile Methodology
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	CERTIFICATIONS SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Professional Certifications}
+\begin{itemize}[leftmargin=1.5em, itemsep=0.8ex, topsep=0.5ex]
+    \item \textbf{DeepLearning.AI TensorFlow Developer Professional Certificate}, Coursera -- \href{https://coursera.org/verify/professional-cert/6B9EQJX9KAKL}{Verify} \hfill \textit{Jul 2022} \\
+    \footnotesize \textit{Validated expertise in building and deploying scalable AI models across Computer Vision, NLP, and Time Series domains.}
+
+    \item \textbf{Advanced Computer Vision with TensorFlow}, Coursera -- \href{https://coursera.org/verify/5ATG7FCSEBYQ}{Verify} \hfill \textit{Sep 2022} \\
+    \footnotesize \textit{Mastered advanced techniques including object detection, segmentation (U-Net, Mask-RCNN), and model interpretability.}
+
+    \item \textbf{Custom and Distributed Training with TensorFlow}, Coursera -- \href{https://coursera.org/verify/C7JUUD8DEYVE}{Verify} \hfill \textit{Aug 2022} \\
+    \footnotesize \textit{Demonstrated proficiency in custom training loops (GradientTape) and distributed training strategies for high-performance computing.}
+
+    \item \textbf{Custom Models, Layers, and Loss Functions}, Coursera -- \href{https://coursera.org/verify/26VUCY3734PW}{Verify} \hfill \textit{Jul 2022} \\
+    \footnotesize \textit{Acquired deep architectural control capabilities, building custom layers and loss functions for specialized problem-solving.}
+
+    \item \textbf{Natural Language Processing in TensorFlow}, Coursera -- \href{https://coursera.org/verify/QS83DW4RNJ5W}{Verify} \hfill \textit{Jun 2022} \\
+    \footnotesize \textit{Specialized in sequence modeling and text processing using RNNs, GRUs, and LSTMs for sentiment analysis and generation.}
+
+    \item \textbf{Convolutional Neural Networks in TensorFlow}, Coursera -- \href{https://coursera.org/verify/BVQSMTS2ABZF}{Verify} \hfill \textit{Jun 2022} \\
+    \footnotesize \textit{Proficient in designing robust CNN architectures, implementing regularization strategies, and applying transfer learning.}
+
+    \item \textbf{Introduction to TensorFlow for AI, ML, and DL}, Coursera -- \href{https://coursera.org/verify/4BF3Z5TJL5MA}{Verify} \hfill \textit{Jun 2022} \\
+    \footnotesize \textit{Established a strong foundation in the end-to-end machine learning lifecycle, from data preprocessing to model optimization.}
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	LANGUAGES & INTERESTS SECTION
+%----------------------------------------------------------------------------------------
+
+\section{Languages}
+\begin{center}
+\textbf{Persian} (Native) \quad \textbf{English} (Advanced/Professional)
+\end{center}
+
+\section{Interests}
+\begin{center}
+Digital Twin Systems \textbar{} Agentic AI \& Automation \textbar{} Smart Manufacturing (Industry 5.0) \textbar{} Generative AI
+\end{center}
+
+\end{document}
